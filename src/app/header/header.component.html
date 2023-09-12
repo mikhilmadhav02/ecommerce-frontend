@@ -1,0 +1,21 @@
+        <!-- Navigation-->
+        <nav style="height: 50px;" class=" fixed-top align-items-center justify-content-center navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand text-white " routerLink=""><i class="fa-solid fa-cart-shopping "></i>  E-Cart</a>
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li>
+                            <input (keyup)="search($event)" style="height:33px; width: 300px;" class="form-control" placeholder="type your product here!" type="text">
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <a routerLink="/products/wishlist" class="  btn text-white text-center d-flex align-items-center ms-5  " style="height: 32px;" > <span class="me-2 text-danger" ><i class="fa-solid fa-heart ms-2"></i></span > Wishlist</a>
+                        
+                            <a routerLink="/products/cart" style="height: 32px;" class="ms-3 text-center d-flex align-items-center justify-content-center btn btn border-light text-white" > <span class="" ><i class="fa-solid fa-cart-plus  "></i></span> <span class="ms-2" >Cart</span>
+                           
+                                <span class=" ms-2 badge bg-secondary text-white ms-1 rounded-pill text-center ">{{length}}</span></a>
+                       
+                    </form>
+                </div>
+            
+        </nav>
+

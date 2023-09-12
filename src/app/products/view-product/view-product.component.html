@@ -1,0 +1,36 @@
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div style="width: 300px; height: 250px;" class="col-md-6"><img width="100%" height="100%"
+                    class="card-img-top mb-5 mb-md-0" [src]="product.image" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">{{product.category}}</div>
+                <h3 class=" fw-bold">{{product.title}}</h3>
+                <div class="fs-5 mb-5">
+
+                    <span class="text-danger" >Rs:{{product.price}}/-</span>
+                </div>
+                <p class="">{{product.description}}</p>
+                <div class="d-flex justify-content-between align-items-center ">
+                    <button (click)="addtowishlist()" class="btn btn-outline-dark flex-shrink-0 mx-3 mt-4 " type="button">
+                        <i class="text-danger fa-solid fa-heart"></i>
+                        Add to Wishlist
+                    </button>
+                    <button (click)="cart(product)" class="btn btn-outline-dark flex-shrink-0 mx-3 mt-4 " type="button">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        Add to cart
+                    </button>
+<br>
+                          
+                     
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="wishresponse" class="text-success text-center fw-bold" >product added to wishlist</div>
+    <div *ngIf="wisherror" class="text-danger text-center fw-bold" >product exists in wishlist</div>
+</section>

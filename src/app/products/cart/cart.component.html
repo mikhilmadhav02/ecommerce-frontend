@@ -1,0 +1,176 @@
+<!-- empty cart -->
+<br>
+        <br>
+        <br>
+<div *ngIf="products.length==0" class="container" >
+    <div class="row">
+        
+
+        <div class="col text-center">
+            <img height="350px" src="https://www.theheartmart.com/customer_portal/shopping2-gif.gif" alt="">
+            <h3 class="text-danger" >Your Cart is Empty</h3>
+            <a class="btn btn-success" routerLink="">Add More </a>
+        </div>
+    </div>
+    </div>
+
+
+
+    <!-- cart -->
+    
+
+    <div *ngIf="products.length>0" class="container mt-5">
+
+<div class="row">
+
+
+<div class="col-8">
+    <br>
+    <br>
+    <h4>Cart Summary...</h4>
+    <br>
+    <form class="form-control">
+
+        
+        <table class="table table-border" >
+            <thead>
+                <tr>
+                    <th>SlNo</th>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products ; let i=index" >
+                    <th>{{i+1}}</th>
+                    <th>{{product.title}}</th>
+                    <th class="align-items-center" ><img width="70px" height="70px" [src]="product.image" alt=""></th>
+                    <th><div class="d-flex align-items-center justify-content-center" >
+                         <button (click)="minus(product.id)" class="btn" >-</button>
+                         <input  [value]="product.quantity" class="btn " style="max-width:3rem ;" type="number" readonly>
+                         <button (click)="plus(product.id)" class="btn" >+</button>
+                    </div></th>
+                    <th>{{product.total}}</th>
+                    <th><div (click)="cartdelete(product.id)" class="btn btn-danger" ><i class=" text-white fa-solid fa-trash-arrow-up"></i></div></th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end align-items-center" >
+            <a (click)="cart()" class="btn btn-danger mb-2 me-2" ><i class="fa-solid fa-trash"></i> Empty Cart</a>
+            <a class="btn btn-success mb-2 ms-2" routerLink=""><i class="fa-solid fa-cart-shopping"></i> Shop More</a>
+        </div>
+
+    </form>
+
+
+</div>
+<div class="col-1"></div>
+
+<div class="col-3">
+    <br>
+<br>
+<br>
+<br>
+<br>
+
+
+    <form class="form-control d-flex flex-column p-3 " >
+        
+        <h5>Sub Total:<span> {{cartotalamount}}/-</span> </h5>
+        <input data-bs-toggle="modal" data-bs-target="#staticBackdrop" class=" mt-2 btn btn-primary d-flex justify-content-center align-items-center" value="Proceed to Buy" type="text">
+    </form>
+</div>
+
+
+</div>
+
+    </div>
+
+
+    <!-- model
+     -->
+     
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Checkout</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- initial div for dekivery details -->
+ <div *ngIf="!click" >
+
+    <h4>Delivery address</h4>
+    <form [formGroup]="checkout" class=" " >
+        <div class="form-floating mb-3">
+            <input name="username" formControlName="username" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Username </label>
+          </div>
+          <div class="form-floating mb-3">
+            <input  name="flat" formControlName="flat" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Address/ Flatno:</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input  name="state" formControlName="state" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">State</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input  name="pincode" formControlName="pincode" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Pincode</label>
+          </div>
+    </form>
+
+ </div>
+ <!-- proceed to checkout -->
+
+<div *ngIf="click" >
+<h4>{{username}}</h4>
+<h5>{{flat}},{{state}}</h5>
+<h6>{{pincode}}</h6>
+<h6></h6>
+<h6></h6>
+
+<div class="d-flex justify-content-between align-items-center" >
+    <h4>total amount :{{cartotalamount}}</h4>
+    <button *ngIf="!offer" (click)="offers()" class="btn text-success" ><i class="fa-solid fa-tag">Offers</i></button>
+</div>
+
+<div *ngIf="offer" >
+<img *ngIf="discountm" (click)="discount10()" width="50px" height="50px" src="https://png.pngtree.com/png-clipart/20210530/ourmid/pngtree-red-coupon-10-off-png-image_3391013.jpg" alt="">
+<img *ngIf="discountn" (click)="discount50()" class="ms-4" width="50px" height="50px" src="https://png.pngtree.com/png-vector/20200806/ourmid/pngtree-up-to-50-off-discount-png-vector-design-png-image_2321000.jpg" alt="">
+</div>
+
+</div>
+
+
+
+<!-- show success -->
+<p *ngIf="showSuccess" >payment completed,order placed</p>
+
+<p *ngIf="showCancel" >transcation canceled</p>
+
+<p *ngIf="showError" >Failed,try again</p>
+
+
+        </div>
+        <div *ngIf="modelfooter" class="modal-footer">
+            
+          <button *ngIf="!click" (click)="check()" type="button" class="btn btn-primary">Checkout</button>
+          <ng-container *ngIf="!pay" >
+            <button *ngIf="click"  (click)="paypal()" class="btn btn-success">Make Payment</button>
+          </ng-container>
+
+<div *ngIf="pay" >
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>

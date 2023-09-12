@@ -1,0 +1,44 @@
+<!-- wishlist -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div *ngFor="let wish of wishdetails" class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img height="150px" class="card-img-top" [src]="wish.image" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{wish.title.slice(0,17)}}...</h5>
+                            <!-- Product price-->
+                            {{wish.price}}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class=" d-flex justify-content-center align-items-center card-footer mb-3 border-top-0 ">
+                        <div>
+                            <button (click)="wishdelete(wish.id)" class="text-light btn btn-danger mx-2 " ><i class="fa-solid fa-heart-circle-minus"></i></button>
+                        </div>
+
+                        <div class="" >
+                            <button (click)="cart(wish)" class="text-light btn btn-success mx-2 " ><i class="fa-solid fa-cart-arrow-down"></i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- empty wishlist -->
+<div *ngIf="wishdetails.length==0" class="container" >
+<div class="row">
+    <div class="col text-center">
+        <img height="280px" src="https://www.theheartmart.com/customer_portal/shopping2-gif.gif" alt="">
+        <h3 class="text-danger" >Your Wishlist is Empty</h3>
+        <a class="btn btn-success" routerLink="">Add More </a>
+    </div>
+</div>
+</div>
